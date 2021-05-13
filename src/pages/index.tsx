@@ -60,9 +60,7 @@ const API = styled.li`
 `;
 
 const IndexPage: React.FC<IndexPageProps> = (props) => {
-  const [view, setView] = React.useState<
-    "HOME" | "AGENT" | "REPORT" | "SANDBOX"
-  >("HOME");
+  const [view, setView] = React.useState<"HOME" | "AGENT" | "REPORT">("HOME");
 
   return (
     <PageWrapper>

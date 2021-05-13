@@ -19,6 +19,27 @@ const HeadContainer = styled.div`
   }
 `;
 
+interface IButton {
+  disabled?: boolean;
+  alternate?: boolean;
+  alternateInverse?: boolean;
+}
+
+export const Button = styled.button<IButton>`
+  background-color: #34bebd;
+  margin: 10px;
+  padding: 20px 0;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 1px solid #34bebd;
+  width: 150px;
+  height: 60px;
+  letter-spacing: 0.23px;
+  color: white;
+  font: bold 15px Lato, sans-serif;
+  outline: none;
+`;
+
 const NavBar = styled.ul`
   display: flex;
   justify-content: flex-end;
@@ -62,6 +83,10 @@ const NavItem = styled.li<{ active: boolean }>`
   }
 `;
 
+const TryNow = styled.div`
+  text-align: right;
+`;
+
 function Header({ view, setView }) {
   return (
     <HeadContainer>
@@ -73,10 +98,27 @@ function Header({ view, setView }) {
         <NavItem active onClick={() => setView("REPORT")}>
           <a>report docs</a>
         </NavItem>
-        <NavItem active onClick={() => setView("SANDBOX")}>
-          <a>try yourself</a>
-        </NavItem>
+        <NavItem active></NavItem>
       </NavBar>
+      {(view === "AGENT" || view === "REPORT") && (
+        <>
+          <div></div>
+          <TryNow>
+            <Button
+              onClick={() =>
+                window.open(
+                  `https://api.vouch.co.uk/graphql-sandbox/${
+                    view === "AGENT" ? "agent" : "reports"
+                  }/try`,
+                  "_blank"
+                )
+              }
+            >
+              Try now
+            </Button>
+          </TryNow>
+        </>
+      )}
     </HeadContainer>
   );
 }
